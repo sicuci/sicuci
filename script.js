@@ -1,72 +1,91 @@
-/* Simple interactive behaviors:
-   - mobile nav toggle
-   - smooth scroll for in-page anchors
-   - intersection observer for fade-in (.fade-up)
-   - basic contact form placeholders (alerts)
-   - fill footer year
-*/
-
-// Mobile nav toggles (works on each page)
-function setupNav(toggleId, navId) {
-  const toggle = document.getElementById(toggleId) || document.getElementById('navToggle');
-  const nav = document.getElementById(navId) || document.getElementById('mainNav');
-  if (!toggle || !nav) return;
-  toggle.addEventListener('click', () => {
-    nav.classList.toggle('open');
-    toggle.classList.toggle('open');
-  });
-  // keyboard accessibility
-  toggle.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle.click(); }
-  });
+:root{
+  --primary: #000080;    /* main */
+  --secondary: #0668ba;  /* secondary */
+  --accent: #F5F5DC;     /* accent/beige */
+  --bg: #ffffff;
+  --text: #062a3a;
+  --muted: #556b85;
 }
 
-// initialize navs (IDs present on each page)
-setupNav('navToggle','mainNav');
-setupNav('navToggle2','mainNav2');
-setupNav('navToggle3','mainNav3');
+/* Base */
+*{box-sizing:border-box}
+html,body{height:100%}
+body{font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial; margin:0; color:var(--text); background:var(--bg); -webkit-font-smoothing:antialiased}
+.wrap{width:92%;max-width:1100px;margin:0 auto}
 
-// Smooth scroll for anchor links (for same-page anchors)
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function (e) {
-    const target = document.querySelector(this.getAttribute('href'));
-    if (!target) return;
-    e.preventDefault();
-    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  });
-});
+/* Header */
+.site-header{background:linear-gradient(90deg,var(--primary),var(--secondary)); color:var(--bg); position:sticky; top:0; z-index:100}
+.header-inner{display:flex;align-items:center;justify-content:space-between;padding:12px 0}
+.brand{display:flex;align-items:center;text-decoration:none}
+.logo-img{height:48px;width:48px;object-fit:contain;border-radius:8px;background:var(--accent);padding:6px;margin-right:10px}
+.brand-text{font-weight:700;font-size:1.1rem;color:var(--bg)}
+.nav-toggle{display:none;background:transparent;border:none;color:var(--bg);font-size:1.2rem;cursor:pointer}
+.main-nav{display:flex;gap:18px}
+.main-nav a{color:var(--bg);text-decoration:none;font-weight:600;padding:8px 10px;border-radius:8px;transition:background .18s, color .18s}
+.main-nav a:hover, .main-nav a.active{background:rgba(255,255,255,0.08); color:var(--accent)}
 
-// Intersection observer to reveal .fade-up
-const io = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) entry.target.classList.add('visible');
-  });
-}, { threshold: 0.12 });
+/* Hero */
+.section{padding:48px 0}
+.hero{padding:64px 0;background:linear-gradient(180deg,rgba(0,0,128,0.06),rgba(6,104,186,0.02))}
+.hero-grid{display:flex;gap:24px;align-items:center;justify-content:space-between}
+.hero-left{max-width:640px}
+.hero h1{font-size:2rem;margin:0 0 10px;color:var(--text)}
+.lead{color:var(--muted);margin-bottom:18px}
+.cta-row{display:flex;gap:12px}
+.btn{display:inline-block;padding:10px 18px;border-radius:999px;font-weight:700;text-decoration:none;cursor:pointer;border:2px solid transparent}
+.btn.primary{background:var(--accent);color:var(--primary);border-color:var(--accent)}
+.btn.ghost{background:transparent;color:var(--bg);border:2px solid rgba(255,255,255,0.12)}
+.btn:hover{transform:translateY(-3px);transition:transform .18s}
 
-document.querySelectorAll('.fade-up').forEach(el => io.observe(el));
+/* Cards / Services */
+.bg-light{background:linear-gradient(180deg,rgba(6,104,186,0.02),transparent)}
+.section-title{font-size:1.25rem;margin-bottom:8px}
+.section-sub{color:var(--muted);margin-bottom:8px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-top:18px}
+.card{background:linear-gradient(180deg, #fff, #fbfdff);border-radius:12px;padding:18px;box-shadow:0 8px 20px rgba(0,0,0,0.06)}
+.service-card h3{margin:0 0 8px}
+.service-card p{margin:0;color:var(--muted)}
 
-// Basic contact forms (show friendly alert; replace with API integration as needed)
-function handleForm(selector) {
-  const form = document.querySelector(selector);
-  if (!form) return;
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const name = (form.querySelector('input[name="name"]') || {}).value || '';
-    const email = (form.querySelector('input[type="email"]') || {}).value || '';
-    const message = (form.querySelector('textarea') || {}).value || '';
-    if (!name || !email || !message) {
-      alert('Please fill all fields before sending.');
-      return;
-    }
-    alert(`Thanks ${name}! We received your message and will contact you soon.`);
-    form.reset();
-  });
+/* Hero small card */
+.hero-card{background:var(--bg); padding:16px;border-radius:12px;box-shadow:0 8px 24px rgba(6,104,186,0.08)}
+.quick-features{list-style:none;padding:0;margin:0;font-weight:600}
+.quick-features li{padding:6px 0}
+
+/* Contact layout */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
+.contact-card{background:linear-gradient(180deg,var(--secondary),#ffffff);padding:18px;border-radius:12px}
+.contact-form label{display:block;font-size:.85rem;margin-top:10px;margin-bottom:6px}
+.contact-form input,.contact-form textarea{width:100%;padding:10px;border-radius:8px;border:1px solid #e6eef9}
+.contact-quick{list-style:none;padding:0;margin-top:12px}
+.map-card iframe{width:100%;height:320px;border:0;border-radius:10px}
+
+/* Footer */
+.site-footer{background:linear-gradient(90deg,var(--primary),var(--secondary));color:var(--bg);padding:14px 0;margin-top:32px}
+.footer-inner{display:flex;align-items:center;justify-content:space-between}
+.footer-nav a{color:var(--bg);text-decoration:none;margin-left:12px}
+
+/* Utilities */
+.mt-24{margin-top:24px}
+.fade-up{opacity:0;transform:translateY(12px);transition:opacity .6s ease,transform .6s ease}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+.delay-1{transition-delay:.08s}
+.delay-2{transition-delay:.16s}
+.delay-3{transition-delay:.24s}
+
+/* Responsive */
+@media (max-width:860px){
+  .hero-grid{flex-direction:column}
+  .contact-grid{grid-template-columns:1fr}
+  .footer-inner{flex-direction:column;gap:12px;text-align:center}
 }
 
-handleForm('#contactForm');       // home -> contact small form (if exists)
-handleForm('#contactFormPage');   // contact page form
+@media (max-width:720px){
+  .main-nav{display:none;position:absolute;right:12px;top:64px;background:linear-gradient(180deg,var(--primary),var(--secondary));padding:10px;border-radius:8px}
+  .nav-toggle{display:block}
+  .main-nav.open{display:flex;flex-direction:column;gap:8px}
+  .logo-img{height:40px;width:40px}
+  .hero h1{font-size:1.5rem}
+}
 
-// Fill footer years on three files (if IDs exist)
-const setYear = (id) => { const el = document.getElementById(id); if (el) el.textContent = new Date().getFullYear(); };
-setYear('year'); setYear('year2'); setYear('year3');
-
+/* Accessibility focus */
+a:focus,button:focus,input:focus,textarea:focus{outline:3px solid rgba(6,104,186,0.12);outline-offset:3px}
