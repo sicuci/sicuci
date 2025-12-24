@@ -1,101 +1,461 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Home - sicuci Laundry</title>
-  <link rel="stylesheet" href="styles.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>sicuci laundry</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#F8FAFC;
+  --primary:#1F3A5F;
+  --secondary:#E6F0FA;
+  --cta:#25D366;
+  --text:#334155;
+  --muted:#475569;
+  --divider:#E2E8F0;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:Inter,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.65;
+}
+
+a{text-decoration:none;color:inherit}
+
+/* ================= HEADER ================= */
+header{
+  position:sticky;
+  top:0;
+  background:rgba(248,250,252,.9);
+  backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--divider);
+  z-index:1000;
+}
+
+.nav{
+  max-width:1200px;
+  margin:auto;
+  padding:16px 20px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.logo img{height:96px}
+
+.nav ul{
+  list-style:none;
+  display:flex;
+  gap:36px;
+  font-weight:600;
+  color:var(--primary);
+}
+
+.nav ul li a{
+  position:relative;
+  padding-bottom:4px;
+}
+
+.nav ul li a::after{
+  content:'';
+  position:absolute;
+  left:0;
+  bottom:0;
+  width:0;
+  height:2px;
+  background:var(--primary);
+  transition:.2s ease;
+}
+
+.nav ul li a:hover::after{width:100%}
+
+.menu-toggle{display:none;font-size:26px;cursor:pointer}
+
+/* ================= MOBILE MENU ================= */
+.mobile-menu{
+  display:none;
+  position:absolute;
+  top:120px;
+  right:20px;
+  background:#fff;
+  border-radius:18px;
+  padding:20px;
+  box-shadow:0 20px 48px rgba(0,0,0,.18);
+}
+
+.mobile-menu a{
+  display:block;
+  padding:14px 8px;
+  font-weight:600;
+  color:var(--primary);
+}
+
+/* ================= SECTIONS ================= */
+section{
+  max-width:1200px;
+  margin:auto;
+  padding:96px 20px;
+}
+
+section h2{
+  color:var(--primary);
+  font-size:32px;
+  margin-bottom:24px;
+}
+
+/* ================= HERO ================= */
+.hero h1{
+  font-size:44px;
+  font-weight:700;
+  color:var(--primary);
+  max-width:720px;
+  margin-bottom:20px;
+}
+
+.hero p{
+  max-width:560px;
+  color:var(--muted);
+  margin-bottom:32px;
+}
+
+/* ================= BUTTON ================= */
+.btn{
+  display:inline-flex;
+  align-items:center;
+  background:var(--cta);
+  color:#fff;
+  padding:14px 28px;
+  border-radius:999px;
+  font-weight:600;
+  transition:.15s ease;
+}
+
+.btn.secondary{
+  background:#fff;
+  color:var(--primary);
+  border:1px solid var(--divider);
+}
+
+.btn:hover{
+  transform:translateY(-1px);
+  box-shadow:0 12px 26px rgba(0,0,0,.18);
+}
+
+/* ================= CARDS ================= */
+.cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:28px;
+  margin-top:56px;
+}
+
+.card{
+  background:#fff;
+  padding:28px;
+  border-radius:20px;
+  border:1px solid var(--divider);
+  box-shadow:0 8px 24px rgba(15,23,42,.06);
+}
+
+.card h4{color:var(--primary);margin-bottom:12px}
+
+/* ================= SLIDER ================= */
+.slider{
+  max-width:720px;
+  margin:40px auto 0;
+  position:relative;
+}
+
+.slide{
+  display:none;
+  background:#fff;
+  padding:40px;
+  border-radius:24px;
+  border:1px solid var(--divider);
+  text-align:center;
+}
+
+.slide img{
+  max-width:260px;
+  opacity:.85;
+}
+
+.slide.active{display:block}
+
+.slider-btn{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  background:#fff;
+  border:1px solid var(--divider);
+  border-radius:50%;
+  width:44px;
+  height:44px;
+  cursor:pointer;
+  font-size:20px;
+}
+
+.prev{left:-20px}
+.next{right:-20px}
+
+.dots{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  margin-top:16px;
+}
+
+.dot{
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  background:var(--divider);
+  cursor:pointer;
+}
+
+.dot.active{background:var(--primary)}
+
+/* ================= TABLE ================= */
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:24px;
+  background:#fff;
+  border-radius:18px;
+  overflow:hidden;
+}
+
+th,td{
+  padding:14px;
+  border-bottom:1px solid var(--divider);
+}
+
+th{
+  background:var(--secondary);
+  color:var(--primary);
+}
+
+/* ================= MAP ================= */
+iframe{
+  width:100%;
+  height:360px;
+  border:0;
+  border-radius:24px;
+  margin:24px 0;
+}
+
+/* ================= FOOTER ================= */
+footer{
+  background:var(--secondary);
+  padding:56px 20px;
+}
+
+.footer-inner{
+  max-width:1200px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:28px;
+}
+
+.footer-bottom{
+  margin-top:32px;
+  text-align:center;
+  color:var(--muted);
+  font-size:14px;
+}
+
+/* ================= FLOATING WA ================= */
+.floating-wa{
+  position:fixed;
+  right:20px;
+  bottom:20px;
+  background:var(--cta);
+  color:#fff;
+  padding:16px 24px;
+  border-radius:999px;
+  font-weight:600;
+}
+
+/* ================= MOBILE ================= */
+@media(max-width:768px){
+  .nav ul{display:none}
+  .menu-toggle{display:block}
+  .logo img{height:72px}
+  section{padding:72px 20px}
+  .prev{left:0}
+  .next{right:0}
+}
+</style>
 </head>
+
 <body>
-  <header class="site-header">
-    <div class="wrap header-inner">
-      <a class="brand" href="index.html">
-        <img src="sicuciPrimary.png" alt="Sicuci Logo" class="logo-img">
-        <span class="brand-text">sicuci</span>
-      </a>
 
-      <button id="navToggle" class="nav-toggle" aria-label="Toggle navigation">☰</button>
+<header>
+  <div class="nav">
+    <div class="logo"><img src="LogoHeader - SICUCI.png" alt="sicuci"></div>
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About Us</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#contact">Contacts</a></li>
+    </ul>
+    <div class="menu-toggle">☰</div>
+  </div>
+</header>
 
-      <nav id="mainNav" class="main-nav" aria-label="Main navigation">
-        <a href="index.html#home" class="nav-link">Home</a>
-        <a href="about.html" class="nav-link">About Us</a>
-        <a href="index.html#services" class="nav-link">Services</a>
-        <a href="contact.html" class="nav-link">Contact</a>
-      </nav>
+<!-- ================= HOME ================= -->
+<section id="home" class="hero">
+  <h1>Nyuci Sendiri Itu Berat. Biar sicuci Aja.</h1>
+  <p>Laundry modern, rapi, dan transparan untuk kebutuhan harian Anda.</p>
+
+  <div style="display:flex;gap:16px">
+    <a class="btn" href="#contact">Contact Us</a>
+    <a class="btn secondary" href="#services">Check our services</a>
+  </div>
+
+  <div class="cards">
+    <div class="card"><h4>Bebas Capek, Terima Beres</h4><p>Lupakan tumpukan cucian di akhir pekan. Kami jemput, cuci, setrika, dan antar kembali ke depan pintu Anda.</p></div>
+    <div class="card"><h4>Treatment Spesial Satuan</h4><p>Jas, bed cover, atau selimut kesayangan butuh penanganan khusus? Tenang, tim ahli kami merawatnya dengan detail dan hati-hati.</p></div>
+    <div class="card"><h4>Titip Sekarang, Kami Antar Pulang</h4><p>Cukup drop cucian Anda di outlet, dan lupakan sisanya. Setelah bersih dan rapi, kurir kami akan mengantarkannya langsung ke rumah Anda. Gratis!</p></div>
+  </div>
+</section>
+
+<!-- ================= ABOUT ================= -->
+<section id="about">
+  <h2>About sicuci</h2>
+  <p>Sicuci hadir sebagai jaringan laundry modern yang mengutamakan kemudahan, efisiensi, dan kualitas. Kami menggabungkan peralatan modern, proses higienis, dan layanan ramah untuk membuat urusan laundry menjadi lebih praktis dan terpercaya.</p>
+
+  <div class="slider">
+    <div class="slide active"><img src="LogoHeader - SICUCI.png"></div>
+    <div class="slide"><img src="LogoHeader - SICUCI.png"></div>
+    <div class="slide"><img src="LogoHeader - SICUCI.png"></div>
+
+    <button class="slider-btn prev">‹</button>
+    <button class="slider-btn next">›</button>
+
+    <div class="dots">
+      <div class="dot active"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
     </div>
-  </header>
+  </div>
 
-  <main>
-    <section id="home" class="hero section">
-      <div class="wrap hero-grid">
-        <div class="hero-left">
-          <h1 class="fade-up">Laundry modern untuk hidup yang lebih mudah</h1>
-          <p class="lead fade-up delay-1">Sicuci menyediakan layanan cepat, higienis, dan terjangkau. Pilih layanan yang sesuai: Self Service, Drop Off, Full Service & Express, Extra, atau per-satuan.</p>
-          <div class="cta-row fade-up delay-2">
-            <a class="btn primary" href="contact.html">Order Now</a>
-            <a class="btn ghost" href="#services">Our Services</a>
-          </div>
-        </div>
+<h3>Visi:</h3>
+<p>Menjadi jaringan laundry modern dengan sistem inovatif yang menghadirkan kemudahan, efisiensi, kenyamanan, dan harga terjangkau</p>
 
-        <div class="hero-right fade-up delay-3" aria-hidden="true">
-          <div class="hero-card">
-            <ul class="quick-features">
-              <li>✔ Segar</li>
-              <li>⏱ Bersih</li>
-              <li>🚚 Lembut</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
+<h3>Misi:</h3>
+<p>•Menghadirkan layanan laundry modern berbasis teknologi untuk kemudahan pelanggan.</br>
+•Menjamin hasil cucian yang bersih, higienis, dan berkualitas tinggi.</br>
+•Memberikan pelayanan cepat, efisien, nyaman, dan dengan harga yang terjangkau.</br>
+•Terus berinovasi untuk menciptakan layanan laundry yang ramah lingkungan dan berkelanjutan.
+</p>
 
-    <section id="services" class="section bg-light">
-      <div class="wrap">
-        <h2 class="section-title fade-up">Layanan Kami</h2>
-        <p class="section-sub fade-up delay-1">Pilihan layanan fleksibel untuk berbagai kebutuhan cucian Anda.</p>
+</section>
 
-        <div class="cards fade-up delay-2">
-          <article class="card service-card">
-            <h3>Self Service</h3>
-            <p>Cucian mandiri menggunakan mesin modern — cepat dan hemat.</p>
-          </article>
+<!-- ================= SERVICES ================= -->
+<section id="services">
+  <h2>Services & Pricelist</h2>
 
-          <article class="card service-card">
-            <h3>Drop Off</h3>
-            <p>Titipkan pakaian Anda, kami kerjakan dengan teliti dan rapi.</p>
-          </article>
+  <h3>Self Service & Drop Off</h3>
+  <table>
+    <tr><th>Layanan</th><th>Harga</th><th>Load</th></tr>
+    <tr><td>Cuci Saja</td><td>Rp20.000 / Load</td><td>0-7 kg</td></tr>
+    <tr><td>Kering Saja</td><td>Rp20.000 / Load</td><td>0-7 kg</td></tr>
+    <tr><td>Cuci + Kering (Drop Off)</td><td>Rp45.000 / Load</td><td>0-7 kg</td></tr>
+  </table>
 
-          <article class="card service-card">
-            <h3>Full Service & Express</h3>
-            <p>Perawatan lengkap dengan opsi express untuk kebutuhan mendesak.</p>
-          </article>
+  <h3 style="margin-top:40px">Full Service & Express</h3>
+  <table>
+    <tr><th>Layanan</th><th>Harga</th><th>Minimal</th></tr>
+    <tr><td>Cuci + Kering + Setrika</td><td>Rp11.000 / kg</td><td>3–5 kg</td></tr>
+    <tr><td>Cuci + Kering + Setrika</td><td>Rp9.000 / kg</td><td>≥ 6 kg</td></tr>
+    <tr><td>Express 6 Jam</td><td>Rp15.000 / kg</td><td>3 kg</td></tr>
+  </table>
 
-          <article class="card service-card">
-            <h3>Extra</h3>
-            <p>Perawatan tambahan: pewangi premium, perbaikan ringan, atau perawatan khusus.</p>
-          </article>
+  <h3 style="margin-top:40px">Satuan</h3>
+  <table>
+    <tr><th>Item</th><th>Harga</th></tr>
+    <tr><td>Bed Cover Kecil</td><td>Rp25.000</td></tr>
+    <tr><td>Bed Cover Sedang</td><td>Rp35.000</td></tr>
+    <tr><td>Bed Cover Besar</td><td>Rp45.000</td></tr>
+    <tr><td>Jaket / Hoodie</td><td>Rp25.000</td></tr>
+    <tr><td>Blazer / Jaket Kulit</td><td>Rp50.000</td></tr>
+    <tr><td>Boneka (Kecil – Sedang)</td><td>Rp15.000 – Rp20.000</td></tr>
+  </table>
 
-          <article class="card service-card">
-            <h3>Satuan</h3>
-            <p>Layanan per-item untuk pakaian khusus atau kebutuhan satuan.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-  </main>
+  <p style="margin-top:16px;color:var(--muted)">
+    *Harga dapat berubah. Konfirmasi detail via WhatsApp untuk layanan khusus.
+  </p>
+</section>
 
-  <footer class="site-footer">
-    <div class="wrap footer-inner">
-      <p>© <span id="year"></span> Sicuci Laundry — All rights reserved.</p>
-      <nav class="footer-nav">
-        <a href="index.html#home">Home</a>
-        <a href="about.html">About</a>
-        <a href="contact.html">Contact</a>
-      </nav>
+<!-- ================= CONTACT ================= -->
+<section id="contact">
+  <h2>Contacts</h2>
+
+  <iframe 
+    src="https://www.google.com/maps?q=-6.1618452,106.8934643&output=embed"
+    loading="lazy">
+  </iframe>
+
+  <p><strong>Jam Operasional:</strong> 07:00 - 22:00</p>
+<p><strong>WhatsApp:</strong> +62 858-1059-9600</p>
+  <p><strong>Email:</strong> sicuci.hub@gmail.com</p>
+  <p><strong>Address:</strong> Apartement Gading Mediterania Tower C Lobi Utara, Jl. Boulevard Bukit Gading Raya No.38, West Kelapa Gading, Kelapa Gading, North Jakarta City, Jakarta 14240</p>
+</section>
+
+<footer>
+<div class="footer-inner">
+    <div>
+      <strong>SICUCI Laundry Coin</strong><br>
+      Apartement Gading Mediterania<br>
+      Tower C Lobi Utara, Jakarta
     </div>
-  </footer>
+    <div>
+      <strong>Contact</strong><br>
+      WhatsApp: 0858-1059-9600<br>
+      Email: cs.sicuci@gmail.com
+    </div>
+    <div>
+      <strong>Social</strong><br>
+      <a href="https://www.instagram.com/sicuci.hub/">Instagram</a><br>
+      <a href="https://www.tiktok.com/@sicuci.hub">TikTok</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    © 2025 sicuci Laundry — All rights reserved.
+  </div>
+</footer>
 
-  <script src="script.js" defer></script>
+<a class="floating-wa" href="https://wa.me/6285810599600">WhatsApp</a>
+
+<script>
+const slides=document.querySelectorAll('.slide');
+const dots=document.querySelectorAll('.dot');
+let index=0;
+
+function showSlide(i){
+  slides.forEach(s=>s.classList.remove('active'));
+  dots.forEach(d=>d.classList.remove('active'));
+  slides[i].classList.add('active');
+  dots[i].classList.add('active');
+  index=i;
+}
+
+document.querySelector('.next').onclick=()=>showSlide((index+1)%slides.length);
+document.querySelector('.prev').onclick=()=>showSlide((index-1+slides.length)%slides.length);
+dots.forEach((d,i)=>d.onclick=()=>showSlide(i));
+setInterval(()=>showSlide((index+1)%slides.length),5000);
+</script>
+
 </body>
 </html>
